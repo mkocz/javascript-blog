@@ -2,41 +2,41 @@ const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles';
 
-const titleClickHandler = function(event){
+const titleClickHandler = function(event) {
 	
 	event.preventDefault();
 	const clickedElement = this;
-  console.log('Link was clicked!', event);
+	console.log('Link was clicked!', event);
 
-  /* remove class 'active' from all article links  */
+  	/* remove class 'active' from all article links  */
 	
 	const activeLinks = document.querySelectorAll('.titles a.active');
 
-	for(let activeLink of activeLinks){
+	for (let activeLink of activeLinks) {
 		activeLink.classList.remove('active');
 	}
 
-  /* add class 'active' to the clicked link */
+  	/* add class 'active' to the clicked link */
 	
 	clickedElement.classList.add('active');
 
-  /* remove class 'active' from all articles */
+ 	 /* remove class 'active' from all articles */
 	
 	const activeArticles = document.querySelectorAll('article.active');
 	
-	for(let activeArticle of activeArticles){
+	for (let activeArticle of activeArticles) {
 		activeArticle.classList.remove('active');
 	}
 
-  /* get 'href' attribute from the clicked link */
+	/* get 'href' attribute from the clicked link */
 	
 	const hrefValue = clickedElement.getAttribute('href')
 
-  /* find the correct article using the selector (value of 'href' attribute) */
+  	/* find the correct article using the selector (value of 'href' attribute) */
 	
 	const targetArticle = document.querySelector(hrefValue);
 
-  /* add class 'active' to the correct article */
+  	/* add class 'active' to the correct article */
 	
 	targetArticle.classList.add('active');
 }
@@ -54,7 +54,7 @@ const generateTitleLinks = function() {
 	
 	let html = '';
 	
-	for(let article of allArticles){
+	for(let article of allArticles) {
 		
 		/* get the article id */
 		
@@ -83,7 +83,7 @@ const generateTitleLinks = function() {
 
 	/* add event listeners to all titles */
 	
-	for(let link of links){
+	for (let link of links) {
 		link.addEventListener('click', titleClickHandler);
 	}
 }
