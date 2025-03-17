@@ -96,7 +96,7 @@ function calculateTagsClass(count, params) {
 	return optCloudClassPrefix + classNumber;
 }
 
-function generateTags(){
+function generateTags() {
 	/* [NEW] create a new variable allTags with an empty Object */
   let allTags = {};
 	
@@ -114,7 +114,7 @@ function generateTags(){
     /* split tags into array */
     const tagsArray = tags.split(" ");
 
-    /* START LOOP: for each tag */
+  /* START LOOP: for each tag */
 	for (let tag of tagsArray) {
 		/* generate HTML of the link */
 		const li = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>	';
@@ -122,7 +122,7 @@ function generateTags(){
 		html = html + li;
 
 		/* [NEW] check if this link is NOT already in allTags */
-    if(!allTags[tag]){
+    if(!allTags[tag]) {
       /* [NEW] add tag to allTags object */
       allTags[tag]=1;
     } else {
@@ -208,11 +208,9 @@ function addClickListenersToTags(){
 addClickListenersToTags();
 
 function generateAuthors(){
-	
-	 const allAuthors = {};
+	const allAuthors = {};
 	/* find all articles */
 	const allArticles = document.querySelectorAll(optArticleSelector);
-	
 	const authorList = document.querySelector(optAuthorsListSelector);
 
 	/* START LOOP: for every article: */
@@ -250,8 +248,7 @@ function generateAuthors(){
 	}
 	/*[NEW] add HTML from allTagsHTML to tagList */
 	authorList.innerHTML = allAuthorsHTML;
-		/* END LOOP: for every article: */
-	
+/* END LOOP: for every article: */
 }
 
 generateAuthors();
