@@ -1,30 +1,29 @@
 const opts = {
-		tagSizes: {
-    count: 5,
-    classPrefix: 'tag-size-',
-  },
+	tagSizes: {
+	    count: 5,
+	    classPrefix: 'tag-size-',
+	},
 };
 
 const select = {
-  all: {
-    articles: '.post',
-    linksTo: {
-      tags: 'a[href^="#tag-"]',
-      authors: 'a[href^="#author-"]',
-			activeTags: 'a.active[href^="#tag-"]',
-			activeAuthors: 'a.active[href^="#author-"]',
-    },
-  },
-  article: {
-    tags: '.post-tags .list',
-    author: '.post-author',
+	all: {
+		articles: '.post',
+		linksTo: {
+		tags: 'a[href^="#tag-"]',
+		authors: 'a[href^="#author-"]',
+		activeTags: 'a.active[href^="#tag-"]',
+		activeAuthors: 'a.active[href^="#author-"]',
+	},
+	article: {
+		tags: '.post-tags .list',
+		author: '.post-author',
 		title: '.post-title',
-  },
-  listOf: {
-    titles: '.titles',
-    tags: '.tags.list',
-    authors: '.authors.list',
-  },
+	},
+	listOf: {
+		titles: '.titles',
+		tags: '.tags.list',
+		authors: '.authors.list',
+	},
 };
 
 const titleClickHandler = function(event) {
@@ -244,9 +243,9 @@ function generateAuthors(){
 		
 		/* Generate data for allAuthor object*/
 		if(!allAuthors[author]){
-      /* [NEW] add author to allAuthors object */
-      allAuthors[author]=1;
-    } else {
+		/* [NEW] add author to allAuthors object */
+		allAuthors[author]=1;
+		} else {
 			allAuthors[author]++;
 		}
 	/* END LOOP: for each author */
@@ -277,8 +276,6 @@ function authorClickHandler(event){
 	/* make a new constant "href" and read the attribute "href" of the clicked element */
 	const href = clickedElement.getAttribute('href');
 	/* find all author links with class active */
-	//const activeAuthorLinks = document.querySelectorAll(select.article.author + ' a.active');
-	//const activeAuthorListLinks = document.querySelectorAll(select.listOf.authors + ' a.active');
 	const activeAuthorLinks = document.querySelectorAll(select.all.linksTo.activeAuthors);
 	/* START LOOP: for each active tag link */
 	for (let activeAuthorLink of activeAuthorLinks) {
@@ -304,7 +301,6 @@ function authorClickHandler(event){
 
 function addClickListenersToAuthors(){
 	/* find all links to authors */
-	//const allAuthorLinks = document.querySelectorAll(select.article.author + ' a');
 	const allAuthorLinks = document.querySelectorAll(select.all.linksTo.authors);
 	
 	/* START LOOP: for each link */
