@@ -9,10 +9,11 @@ const select = {
 	all: {
 		articles: '.post',
 		linksTo: {
-		tags: 'a[href^="#tag-"]',
-		authors: 'a[href^="#author-"]',
-		activeTags: 'a.active[href^="#tag-"]',
-		activeAuthors: 'a.active[href^="#author-"]',
+			tags: 'a[href^="#tag-"]',
+			authors: 'a[href^="#author-"]',
+			activeTags: 'a.active[href^="#tag-"]',
+			activeAuthors: 'a.active[href^="#author-"]',
+		},
 	},
 	article: {
 		tags: '.post-tags .list',
@@ -193,11 +194,9 @@ function tagClickHandler(event){
 	}
 	
 	/* find all tag links with "href" attribute equal to the "href" constant */
-	const selectedTagLinks = document.querySelectorAll(select.article.tags + ' a[href="' + href  + '"]');
-	const selectedTagListLinks = document.querySelectorAll(select.listOf.tags + ' a[href="' + href  + '"]');
-
+	const selectedTagLinks= document.querySelectorAll('a[href="' + href  + '"]')
 	/* START LOOP: for each found tag link */
-	for(let tagLink of [...selectedTagLinks, ...selectedTagListLinks]) {
+	for(let tagLink of selectedTagLinks) {
 		/* add class active */
 		tagLink.classList.add('active');
 	/* END LOOP: for each found tag link */
@@ -285,11 +284,9 @@ function authorClickHandler(event){
 	}
 	
 	/* find all tag links with "href" attribute equal to the "href" constant */
-	const selectedAuthorLinks = document.querySelectorAll(select.article.author + ' a[href="' + href  + '"]');
-	const selectedAuthorListLinks = document.querySelectorAll(select.listOf.authors + ' a[href="' + href  + '"]');
-
+	const selectedAuthorLinks = document.querySelectorAll('a[href="' + href  + '"]');
 	/* START LOOP: for each found author link */
-	for(let authorLink of [...selectedAuthorLinks, ...selectedAuthorListLinks]) {
+	for(let authorLink of selectedAuthorLinks) {
 		/* add class active */
 		authorLink.classList.add('active');
 	/* END LOOP: for each found author link */
