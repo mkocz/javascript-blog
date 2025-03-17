@@ -3,7 +3,10 @@ const optArticleSelector = '.post',
 	optTitleListSelector = '.titles',
 	optArticleTagsSelector = '.post-tags .list',
 	optArticleAuthorsSelector = '.post-author',
-	optTagsListSelector = '.tags.list';
+	optTagsListSelector = '.tags.list',
+	optCloudClassCount = 5,
+	optCloudClassPrefix = 'tag-size-';
+	;
 
 const titleClickHandler = function(event) {
 	event.preventDefault();
@@ -70,12 +73,35 @@ const generateTitleLinks = function(customSelector = '') {
 /* generate title links and add event listeners to them */
 generateTitleLinks();
 
+function calculateTagsParams(tags) {
+	const params = {
+		max: 0,
+		min: 999999
+	}
+	
+	for(let tag in tags) {
+		if( tags[tag] > params.max) {
+			params.max = tags[tag];
+		}
+		
+		if( tags[tag] < params.min) {
+			params.min = tags[tag];
+		}
+	}
+	return params;
+}
+
+function calculateTagsClass(count, params) {
+	const classNumber = Math.floor((count - params.min)/(params.max - params.min)*(optCloudClassCount-1)) +1;
+	return optCloudClassPrefix + classNumber;
+}
+
 function generateTags(){
-	/* [NEW] create a new variable allTags with an empty array */
-  let allTags = [];
+	/* [NEW] create a new variable allTags with an empty Object */
+  let allTags = {};
 	
 	/* find all articles */
-    const allArticles = document.querySelectorAll(optArticleSelector);
+  const allArticles = document.querySelectorAll(optArticleSelector);
 
 	/* START LOOP: for every article: */
 	for (let article of allArticles) {		
@@ -96,23 +122,36 @@ function generateTags(){
 		html = html + li;
 
 		/* [NEW] check if this link is NOT already in allTags */
-    if(allTags.indexOf(li) == -1){
-      /* [NEW] add generated code to allTags array */
-      allTags.push(li);
-    }
+    if(!allTags[tag]){
+      /* [NEW] add tag to allTags object */
+      allTags[tag]=1;
+    } else {
+			allTags[tag]++;
+		}
 	/* END LOOP: for each tag */
 	}
 		
   /* insert HTML of all the links into the tags wrapper */
 	tagWrapper.insertAdjacentHTML('beforeend', html);
 	/* END LOOP: for every article: */
-   }
+  }
 	
 	/* [NEW] find list of tags in right column */
   const tagList = document.querySelector(optTagsListSelector);
+	const tagsParams = calculateTagsParams(allTags);
 
-  /* [NEW] add html from allTags to tagList */
-  tagList.innerHTML = allTags.join(' ');
+	/* [NEW] create variable for all links HTML code */
+	let allTagsHTML = '';
+
+	/* [NEW] START LOOP: for each tag in allTags: */
+	for(let tag in allTags){
+		/* [NEW] generate code of a link and add it to allTagsHTML */
+		allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + calculateTagsClass(allTags[tag], tagsParams) + '">' + tag +'</a></li>';
+	/* [NEW] END LOOP: for each tag in allTags: */
+	}
+
+	/*[NEW] add HTML from allTagsHTML to tagList */
+	tagList.innerHTML = allTagsHTML;
 }
 
 generateTags();
@@ -171,16 +210,16 @@ function generateAuthors(){
 
 	/* START LOOP: for every article: */
 	for (let article of allArticles) {
-    	/* find author paragraph */
+    /* find author paragraph */
 		const authorWrapper = article.querySelector(optArticleAuthorsSelector);
-    	/* make html variable with empty string */
+    /* make html variable with empty string */
 		let html = '';
-    	/* get author from data-author attribute */
+    /* get author from data-author attribute */
 		const author = article.getAttribute('data-author');
 		/* create HTML of the link */
 		const authorLink = '<a href="#' + author + '">' + author + '</a>	';
 		
-    	/* insert HTML of all the links into the tags wrapper */
+    /* insert HTML of all the links into the tags wrapper */
 		authorWrapper.insertAdjacentHTML('beforeend', authorLink);
 		/* END LOOP: for every article: */
 	}
@@ -201,9 +240,9 @@ function authorClickHandler(event){
 
 	/* START LOOP: for each active tag link */
 	for (let activeAuthorLink of activeAuthorLinks) {
-    	/* remove class active */
+    /* remove class active */
 		activeTagLink.classList.remove('active');
-		/* END LOOP: for each active tag link */
+	/* END LOOP: for each active tag link */
 	}
 	
 	/* find all tag links with "href" attribute equal to the "href" constant */
