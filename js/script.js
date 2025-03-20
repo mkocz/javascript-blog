@@ -161,10 +161,10 @@ function generateTags() {
 		/* insert HTML of all the links into the tags wrapper */
 		tagWrapper.insertAdjacentHTML('beforeend', html);
 	/* END LOOP: for every article: */
-  }
+	}
 	
 	/* [NEW] find list of tags in right column */
-  const tagList = document.querySelector(select.listOf.tags);
+	const tagList = document.querySelector(select.listOf.tags);
 	const tagsParams = calculateTagsParams(allTags);
 
 	/* [NEW] create variable for all links HTML code */
