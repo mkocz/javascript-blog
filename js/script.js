@@ -269,7 +269,8 @@ function generateAuthors(){
 	for(let author in allAuthors){
 		/* [NEW] generate code of a link and add it to allAuthorsHTML */
 		allAuthorsData.authors.push({
-			author: author
+			author: author,
+			count: allAuthors[author]
 		});
 	/* [NEW] END LOOP: for each tag in allAuthors: */
 	}
